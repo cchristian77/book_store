@@ -15,12 +15,12 @@ return new class extends Migration
     {
         Schema::create('publishers', function (Blueprint $table) {
             $table->id();
-            $table->timestamps();
-            $table->softDeletes();
-
             $table->string('company_name');
             $table->string('address');
             $table->string('phone_number');
+
+            $table->timestamps();
+            $table->softDeletes();
         });
     }
 

@@ -15,11 +15,11 @@ return new class extends Migration
     {
         Schema::create('book_authors', function (Blueprint $table) {
             $table->id();
-            $table->timestamps();
-            $table->softDeletes();
-
             $table->foreignId('book_id')->constrained('books');
             $table->foreignId('author_id')->constrained('authors');
+
+            $table->timestamps();
+            $table->softDeletes();
         });
     }
 
