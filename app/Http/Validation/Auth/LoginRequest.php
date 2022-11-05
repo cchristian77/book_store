@@ -1,13 +1,13 @@
 <?php
 
-namespace App\Http\Validation;
+namespace App\Http\Validation\Auth;
 
+use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Validation\ValidationException;
-use Illuminate\Contracts\Validation\Validator;
 
-class RegisterRequest extends FormRequest
+class LoginRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -35,7 +35,7 @@ class RegisterRequest extends FormRequest
     protected function failedValidation(Validator $validator)
     {
         $response = new JsonResponse([
-            'message' => $validator->errors()->first(),
+            'message' => $validator->errors(),
         ],400);
 
         throw new ValidationException($validator, $response);
