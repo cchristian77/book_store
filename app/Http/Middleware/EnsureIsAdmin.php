@@ -20,8 +20,6 @@ class EnsureIsAdmin
         if (Auth::user() && Auth::user()->role === 1) {
             return $next($request);
         }
-        return response()->json(
-            ['error' => 'You don\'t have the administrator access'],
-            403);
+        return response()->json(['message' => 'Forbidden'], 403);
     }
 }
