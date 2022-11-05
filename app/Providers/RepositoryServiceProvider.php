@@ -27,7 +27,9 @@ class RepositoryServiceProvider extends ServiceProvider
         $models = array(
             'Base',
             'User',
-            'Publisher'
+            'Publisher',
+            'Author',
+            'Genre',
         );
 
         foreach ($models as $model) {

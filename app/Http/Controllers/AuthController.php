@@ -17,7 +17,8 @@ class AuthController extends Controller
         $this->repository = $repository;
     }
 
-    public function login(LoginRequest $request) {
+    public function login(LoginRequest $request)
+    {
         $credentials = [
             'email' => $request->get('email'),
             'password' => $request->get('password')
@@ -29,16 +30,16 @@ class AuthController extends Controller
         }
 
         if (!$authenticatedUser) {
-            abort(
-                401,
-                'Login failed. Either the email or password is wrong.'
-            );
+            return response()->json([
+                'error' => 'Login failed. Either the email or password is wrong.'
+            ], 401);
         }
 
         return new LoginResource($authenticatedUser);
     }
 
-    public function register(RegisterRequest $request) {
+    public function register(RegisterRequest $request)
+    {
         $request->merge([
             'password' => bcrypt($request['password']),
             'username' => strtolower(trim($request['username'])),
@@ -52,12 +53,14 @@ class AuthController extends Controller
         ], 201);
     }
 
-    public function logout() {
+    public function logout()
+    {
         Auth::user()->token()->revoke();
         return response()->json(['message' => 'Logout Success']);
     }
 
-    public function userToken() {
+    public function userToken()
+    {
         return new LoginResource(Auth::user());
     }
 

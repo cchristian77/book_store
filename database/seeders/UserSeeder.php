@@ -29,7 +29,7 @@ class UserSeeder extends Seeder
             } else {
                 $user->username = 'user_' . $i;
                 $user->first_name = 'User' . $i;
-                $user->email = 'user'. $i .'admin@example.com';
+                $user->email = 'user' . $i . '@example.com';
                 $user->password = Hash::make('user123');
                 $user->role = 0;
             }
