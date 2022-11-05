@@ -5,15 +5,15 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\DB;
-use App\Repositories\Interfaces\GenreInterface;
-use App\Http\Validation\Genre\StoreGenreRequest as RequestValidation;
+use App\Repositories\Interfaces\UserInterface;
+use App\Http\Validation\User\UpdateUserRequest as RequestValidation;
 
-class GenreController extends Controller
+class UserController extends Controller
 {
 
     private $repository;
 
-    public function __construct(GenreInterface $repository)
+    public function __construct(UserInterface $repository)
     {
         $this->repository = $repository;
     }
@@ -49,25 +49,6 @@ class GenreController extends Controller
     {
         return $this->repository->find($id);
     }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param RequestValidation $request
-     * @return Response
-     */
-    public function store(RequestValidation $request)
-    {
-        return DB::transaction(function () use ($request) {
-            $newData = $this->repository->create($request->all());
-
-            return response()->json([
-                'message' => 'Store Success',
-                'data' => $newData,
-            ], 201);
-        });
-    }
-
 
     /**
      * Update the specified resource in storage.

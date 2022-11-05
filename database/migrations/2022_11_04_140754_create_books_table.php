@@ -21,7 +21,6 @@ return new class extends Migration
             $table->boolean('is_published')->default(0);
             $table->integer('page');
             $table->longText('synopsis')->nullable();
-            $table->text('about')->nullable();
             $table->text('cover_url')->nullable();
             $table->foreignId('publisher_id')->constrained('publishers');
 

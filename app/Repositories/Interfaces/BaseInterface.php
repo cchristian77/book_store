@@ -14,6 +14,13 @@ interface BaseInterface
     public function all(): Collection;
 
     /**
+     * @param $sortField
+     * @param $sortOrder
+     * @return Collection
+     */
+    public function getWithQuery($sortField, $sortOrder): Collection;
+
+    /**
      * @param $perPage
      * @param $sortField
      * @param $sortOrder

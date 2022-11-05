@@ -25,17 +25,17 @@ class PublisherController extends Controller
      */
     public function index(Request $request)
     {
-        $isPaginated = $request->query('paginated', true) === 'true';
-        if ($isPaginated) {
-            $sortField = $request->query('sort_field');
-            $sortOrder = $request->query('sort_order');
-            $perPage = $request->query('per_page', 20);
+        $sortField = $request->query('sort_field');
+        $sortOrder = $request->query('sort_order');
 
+        $isPaginated = $request->query('paginated', 'true') === 'true';
+        if ($isPaginated) {
+            $perPage = $request->query('per_page', 20);
             return $this->repository->getAllPaginated($perPage, $sortField, $sortOrder);
         }
 
         return response()->json([
-            'data' => $this->repository->all(),
+            'data' => $this->repository->getWithQuery($sortField, $sortOrder),
         ]);
     }
 
