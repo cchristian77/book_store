@@ -31,7 +31,7 @@ return new class extends Migration
             $table->string('phone_number')->nullable();
             $table->tinyInteger('role')->default('0')
                 ->comment('0:User, 1:Admin');
-            $table->boolean('gender')->nullable();
+            $table->char('gender', 1)->nullable();
             $table->text('profile_picture_url')->nullable();
 
             $table->index('first_name');

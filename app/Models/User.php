@@ -6,7 +6,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
-use Laravel\Sanctum\HasApiTokens;
+use Laravel\Passport\HasApiTokens;
 
 class User extends Authenticatable
 {
@@ -18,9 +18,19 @@ class User extends Authenticatable
      * @var array<int, string>
      */
     protected $fillable = [
-        'name',
+        'username',
         'email',
         'password',
+        'first_name',
+        'middle_name',
+        'last_name',
+        'address',
+        'place_of_birth',
+        'date_of_birth',
+        'phone_number',
+        'role',
+        'gender',
+        'profile_picture_url',
     ];
 
     /**
@@ -33,12 +43,19 @@ class User extends Authenticatable
         'remember_token',
     ];
 
-    /**
-     * The attributes that should be cast.
-     *
-     * @var array<string, string>
-     */
-    protected $casts = [
-        'email_verified_at' => 'datetime',
+    protected $dates = [
+        'created_at',
+        'updated_at',
+        'deleted_at',
     ];
+
+
+    public function getFullNameAttribute(): ?string
+    {
+        return preg_replace(
+            '/\s+/',
+            ' ',
+            $this->first_name.' '.$this->middle_name.' '.$this->last_name
+        );
+    }
 }
