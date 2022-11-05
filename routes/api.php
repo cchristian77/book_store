@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\GenreController;
 use App\Http\Controllers\AuthorController;
 use App\Http\Controllers\PublisherController;
 
@@ -56,6 +57,18 @@ Route::group(['middleware' => 'auth:api'], function () {
             Route::post('', [AuthorController::class, 'store'])->name('api.author.store');
             Route::post('{id}', [AuthorController::class, 'update'])->name('api.author.update');
             Route::delete('{id}', [AuthorController::class, 'delete'])->name('api.author.delete');
+        });
+    });
+
+    Route::prefix('genre')->group(function () {
+        Route::get('', [GenreController::class, 'index'])->name('api.genre.index');
+        Route::get('{id}', [GenreController::class, 'show'])->name('api.genre.show');
+
+        // Only Admin can CREATE, UPDATE, DELETE Author
+        Route::group(['middleware' => 'admin'], function () {
+            Route::post('', [GenreController::class, 'store'])->name('api.genre.store');
+            Route::put('{id}', [GenreController::class, 'update'])->name('api.genre.update');
+            Route::delete('{id}', [GenreController::class, 'delete'])->name('api.genre.delete');
         });
     });
 });
