@@ -2,6 +2,6 @@
 
 namespace App\Repositories\Interfaces;
 
-interface UserInterface {
+interface PublisherInterface {
 
 }

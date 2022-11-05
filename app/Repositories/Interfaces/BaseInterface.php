@@ -4,6 +4,7 @@ namespace App\Repositories\Interfaces;
 
 use Illuminate\Support\Collection;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Pagination\LengthAwarePaginator;
 
 interface BaseInterface
 {
@@ -11,6 +12,14 @@ interface BaseInterface
      * @return Collection
      */
     public function all(): Collection;
+
+    /**
+     * @param $perPage
+     * @param $sortField
+     * @param $sortOrder
+     * @return LengthAwarePaginator
+     */
+    public function getAllPaginated($perPage, $sortField, $sortOrder): LengthAwarePaginator;
 
     /**
      * @param $id

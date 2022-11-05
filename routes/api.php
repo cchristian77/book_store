@@ -21,13 +21,14 @@ Route::post('register', [AuthController::class, 'register'])->name('api.auth.reg
 
 Route::group(['middleware' => 'auth:api'], function(){
     Route::post('logout', [AuthController::class, 'logout'])->name('api.auth.logout');
+    Route::post('user-token', [AuthController::class, 'userToken'])->name('api.auth.user-token');
 
-//    Route::prefix('publisher')->group(function () {
-//     Route::get('', [PublisherController::class, 'index'])->name('api.publisher.index');
-//    Route::get('{id}', [PublisherController::class, 'show'])->name('api.company-job-division.show');
-//    Route::post('', [PublisherController::class, 'store'])->name('api.company-job-division.store');
-//    Route::put('{id}', [PublisherController::class, 'update'])->name('api.company-job-division.update');
-//    Route::delete('{id}', [PublisherController::class, 'delete'])->name('api.company-job-division.delete');
-//    });
+    Route::prefix('publisher')->group(function () {
+        Route::get('', [PublisherController::class, 'index'])->name('api.publisher.index');
+        Route::get('{id}', [PublisherController::class, 'show'])->name('api.publisher.show');
+        Route::post('', [PublisherController::class, 'store'])->name('api.publisher.store');
+        Route::put('{id}', [PublisherController::class, 'update'])->name('api.publisher.update');
+        Route::delete('{id}', [PublisherController::class, 'delete'])->name('api.publisher.delete');
+    });
 });
 

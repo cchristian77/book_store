@@ -5,6 +5,7 @@ namespace App\Repositories;
 use Illuminate\Support\Collection;
 use Illuminate\Database\Eloquent\Model;
 use App\Repositories\Interfaces\BaseInterface;
+use Illuminate\Pagination\LengthAwarePaginator;
 
 class BaseRepository implements BaseInterface
 {
@@ -27,6 +28,31 @@ class BaseRepository implements BaseInterface
     public function all(): Collection
     {
         return $this->model->all();
+    }
+
+    /**
+     * @param $perPage
+     * @param $sortField
+     * @param $sortOrder
+     * @return LengthAwarePaginator
+     */
+    public function getAllPaginated($perPage, $sortField, $sortOrder): LengthAwarePaginator
+    {
+        $fillable = 'id';
+        $sortOrder = $sortOrder ?? 'asc';
+
+        if ($sortField) {
+            foreach ($this->model->getFillable() as $fill) {
+                if ($sortField === $fill) {
+                    $fillable = $sortField;
+                    break;
+                }
+            }
+        }
+
+        return $this->model
+            ->orderBy($fillable, $sortOrder)
+            ->paginate($perPage);
     }
 
     /**
