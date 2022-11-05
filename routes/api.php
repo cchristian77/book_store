@@ -38,18 +38,6 @@ Route::group(['middleware' => 'auth:api'], function () {
         });
     });
 
-    Route::prefix('publisher')->group(function () {
-        Route::get('', [PublisherController::class, 'index'])->name('api.publisher.index');
-        Route::get('{id}', [PublisherController::class, 'show'])->name('api.publisher.show');
-
-        // Only Admin can CREATE, UPDATE, DELETE Publisher
-        Route::group(['middleware' => 'admin'], function () {
-            Route::post('', [PublisherController::class, 'store'])->name('api.publisher.store');
-            Route::put('{id}', [PublisherController::class, 'update'])->name('api.publisher.update');
-            Route::delete('{id}', [PublisherController::class, 'delete'])->name('api.publisher.delete');
-        });
-    });
-
     Route::prefix('author')->group(function () {
         Route::get('', [AuthorController::class, 'index'])->name('api.author.index');
         Route::get('{id}', [AuthorController::class, 'show'])->name('api.author.show');
