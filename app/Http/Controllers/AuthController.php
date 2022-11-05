@@ -57,5 +57,9 @@ class AuthController extends Controller
         return response()->json(['message' => 'Logout Success']);
     }
 
+    public function userToken() {
+        return new LoginResource(Auth::user());
+    }
+
 
 }
