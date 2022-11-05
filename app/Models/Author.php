@@ -30,6 +30,10 @@ class Author extends Model
         'deleted_at',
     ];
 
+    protected $hidden = [
+        'pivot',
+    ];
+
     public function books()
     {
         return $this->belongsToMany(Book::class, 'book_authors', 'author_id', 'book_id');

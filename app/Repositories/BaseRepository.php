@@ -31,6 +31,30 @@ class BaseRepository implements BaseInterface
     }
 
     /**
+     * @param $sortField
+     * @param $sortOrder
+     * @return Collection
+     */
+    public function getWithQuery($sortField, $sortOrder): Collection
+    {
+        $fillable = 'id';
+        $sortOrder = $sortOrder ?? 'asc';
+
+        if ($sortField) {
+            foreach ($this->model->getFillable() as $fill) {
+                if ($sortField === $fill) {
+                    $fillable = $sortField;
+                    break;
+                }
+            }
+        }
+
+        return $this->model
+            ->orderBy($fillable, $sortOrder)
+            ->get();
+    }
+
+    /**
      * @param $perPage
      * @param $sortField
      * @param $sortOrder
