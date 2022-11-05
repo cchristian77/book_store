@@ -6,7 +6,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
-use Laravel\Sanctum\HasApiTokens;
+use Laravel\Passport\HasApiTokens;
 
 class User extends Authenticatable
 {
@@ -48,4 +48,14 @@ class User extends Authenticatable
         'updated_at',
         'deleted_at',
     ];
+
+
+    public function getFullNameAttribute(): ?string
+    {
+        return preg_replace(
+            '/\s+/',
+            ' ',
+            $this->first_name.' '.$this->middle_name.' '.$this->last_name
+        );
+    }
 }
